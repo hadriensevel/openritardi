@@ -6,8 +6,13 @@ def readme():
 
 setup(name='openritardi_api',
       version='0.1',
+      python_requires='>=3.9',
       description='A package to get data from the viaggiatreno API',
       long_description=readme(),
+      classifiers=[
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.9',
+      ],
       url='https://github.com/hadriensevel/openritardi_api',
       author='Hadrien Sevel',
       author_email='hadrien.sevel@outlook.com',
