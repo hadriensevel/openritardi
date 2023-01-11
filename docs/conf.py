@@ -17,9 +17,9 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Open Ritardi API'
-copyright = '2023, Hadrien Sevel'
-author = 'Hadrien Sevel'
+project = 'Open Ritardi'
+copyright = '2023, Open Ritardi Development Team'
+author = 'Open Ritardi Development Team'
 
 
 # -- General configuration ---------------------------------------------------
@@ -60,4 +60,4 @@ html_static_path = ['_static']
 autoclass_content = 'both'
 
 # Command for apidoc
-# sphinx-apidoc -o . ../openritardi_api
+# sphinx-apidoc -o . ../openritardi

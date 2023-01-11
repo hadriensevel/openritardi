@@ -1,4 +1,4 @@
-# Welcome to Open Ritardi API's documentation!
+# Welcome to Open Ritardi's documentation!
 
 ```{toctree}
 ---
