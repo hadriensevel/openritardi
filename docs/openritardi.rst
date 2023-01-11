@@ -8,7 +8,6 @@ Subpackages
    :maxdepth: 4
 
    openritardi.api
-   openritardi.tests
 
 Module contents
 ---------------

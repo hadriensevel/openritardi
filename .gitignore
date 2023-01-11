@@ -161,3 +161,6 @@ cython_debug/
 
 # .DS_Store file from MacOS
 .DS_Store
+
+# Local tests
+tests/local_test.py

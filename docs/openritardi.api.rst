@@ -1,14 +1,24 @@
 openritardi.api package
 =======================
 
-Subpackages
------------
+Submodules
+----------
 
-.. toctree::
-   :maxdepth: 4
+openritardi.api.data\_objects module
+------------------------------------
 
-   openritardi.api.objects
-   openritardi.api.providers
+.. automodule:: openritardi.api.data_objects
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openritardi.api.providers module
+--------------------------------
+
+.. automodule:: openritardi.api.providers
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------
