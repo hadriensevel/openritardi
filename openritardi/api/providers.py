@@ -3,6 +3,7 @@
 
 import json
 import requests
+
 from .data_objects import Station
 
 class Viaggiatreno:
@@ -21,7 +22,7 @@ class Viaggiatreno:
     def __init__(self):
         pass
 
-    def get_stations_region(self, id_region: int):
+    def get_stations_region(self, id_region: int) -> list[Station]:
         '''Get the list of stations in a region.
 
         :param id_region: ID of the region
@@ -37,11 +38,15 @@ class Viaggiatreno:
         # Create a list of Station objects from the response of the request
         stations = []
         for station in data_json:
-            stations.append(Station(station['localita']['nomeLungo'], station['codiceStazione'], station['lat'], station['lon'], station['localita']['nomeBreve']))
+            stations.append(Station(name=station['localita']['nomeLungo'],
+                                    name_short=station['localita']['nomeBreve'],
+                                    id=station['codiceStazione'],
+                                    lat=station['lat'],
+                                    lon=station['lon']))
 
         return stations
 
-    def autocomplete_station(self, query: str):
+    def autocomplete_station(self, query: str) -> list[Station]:
         '''Autocomplete a station name.
 
         :param query: query to search
@@ -57,9 +62,11 @@ class Viaggiatreno:
         # Create a list of Station objects from the response of the request
         stations = []
         for station in data_json:
-            stations.append(Station(station['localita']['nomeLungo'], station['codiceStazione'], station['lat'], station['lon'], station['localita']['nomeBreve']))
+            stations.append(Station(name=station['nomeLungo'],
+                                    name_short=station['nomeBreve'],
+                                    id=station['id']))
 
         return stations
 
-    def get_region_station(self, id_station: str):
+    def get_region_station(self, id_station: str) -> int:
         pass
