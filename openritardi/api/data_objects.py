@@ -7,21 +7,23 @@ class Station:
     
     def __init__(self, name, id, name_short=None, lat=None, lon=None):
         '''
-        :param name: Name of the station
+        :param name: name of the station
         :type name: str
         :param id: ID of the station
         :type id: str
-        :param lat: Latitude of the station
-        :type lat: int
-        :param lon: Longitude of the station
-        :type lon: int
+        :param name_short: short name of the station, defaults to None
+        :type name_short: str, optional
+        :param lat: latitute of the station, defaults to None
+        :type lat: int, optional
+        :param lon: longitude of the station, defaults to None
+        :type lon: int, optional
         '''
 
         self.name = name
         self.id = id
+        self.name_short = name_short
         self.lat = lat
         self.lon = lon
-        self.name_short = name_short
 
 class Train:
     '''Class to represent a train.
