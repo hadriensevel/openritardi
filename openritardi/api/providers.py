@@ -4,7 +4,7 @@
 import json
 import requests
 
-from .data_objects import Station
+from .data_objects import Station, Train, Stop
 
 class Viaggiatreno:
     '''Viaggiatreno API
@@ -14,9 +14,10 @@ class Viaggiatreno:
     API_ENDPOINTS = {
         'stations_list': 'elencoStazioni',
         'autocomplete_station': 'cercaStazione',
-        'autocomplete_train_number': 'cercaNumeroTreno',
+        'autocomplete_train_number': 'cercaNumeroTrenoTrenoAutocomplete',
         'region_station': 'regione',
-        'station_details': 'dettaglioStazione'
+        'station_details': 'dettaglioStazione',
+        'train_stops': 'tratteCanvas',
     }
 
     def __init__(self):
@@ -86,9 +87,9 @@ class Viaggiatreno:
     def get_station_details(self, id_station: str) -> Station:
         '''Create a Station object with its details.
 
-        :param id_station: _description_
+        :param id_station: ID of the station
         :type id_station: str
-        :return: _description_
+        :return: Station object
         :rtype: Station
         '''
 
@@ -108,3 +109,57 @@ class Viaggiatreno:
                             id_region=data_json['codReg'])
 
         return station
+
+    def autocomplete_train_number(self, query: int) -> list[Train]:
+        '''Autocomplete a train number.
+        It returns a list of trains (number, origin ID and departure time) that match the query.
+
+        :param query: query to search
+        :type query: str
+        :return: list of Train objects
+        :rtype: list[Train]
+        '''
+        
+        # Get the data from the API
+        # The data the we get is text, not JSON
+        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['autocomplete_train_number'] + '/' + str(query))
+        data_txt = response.text
+
+        # Loop on every line of the response test to create 
+        # and object and add it to the list
+        trains = []
+        for train in data_txt.splitlines():
+
+            # Exemple of a line: 41 - DOMODOSSOLA|41-S01003-1673391600000
+            # Drop everything before | and split the rest
+            train = train.split('|')[1].split('-')
+
+            # Create a Train object and add it to the list
+            trains.append(Train(number=train[0],
+                                origin_id=train[1],
+                                departure_time=train[2]))
+
+        return trains
+
+    def get_train_stops(self, train: Train) -> Train:
+        '''Get the stops of a train with realtime data.
+
+        :param train: Train object
+        :type train: Train
+        :return: Train object with the stops
+        :rtype: Train
+        '''
+
+        # Get the data from the API
+        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['train_stops'] + '/' + train.origin_id + '/' + train.number + '/' + train.departure_time)
+        data_json = json.loads(response.text)
+
+        # Loop on every stop and add it to the train object
+        for stop in data_json:
+            train.add_stop(Stop( name=stop['fermata']['stazione'],
+                                    id=stop['fermata']['id'],
+                                    arrival_time=stop['fermata']['arrivo_teorico'],
+                                    departure_time=stop['fermata']['partenza_teorica'],
+                                    delay_arrival=stop['fermata']['ritardoArrivo'],
+                                    delay_departure=stop['fermata']['ritardoPartenza']))
+        return train
