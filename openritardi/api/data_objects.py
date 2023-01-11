@@ -6,12 +6,12 @@ class Station:
     '''Class to represent a station.
     '''
 
-    def __init__(self, name, id, name_short=None, lat=None, lon=None, id_region=None):
+    def __init__(self, name, station_id, name_short=None, lat=None, lon=None, id_region=None):
         '''
         :param name: name of the station
         :type name: str
-        :param id: ID of the station
-        :type id: str
+        :param station_id: ID of the station
+        :type station_id: str
         :param name_short: short name of the station, defaults to None
         :type name_short: str, optional
         :param lat: latitute of the station, defaults to None
@@ -22,7 +22,7 @@ class Station:
         :type id_region: int, optional
         '''
         self.name = name
-        self.id = id
+        self.station_id = station_id
         self.name_short = name_short
         self.lat = lat
         self.lon = lon
@@ -32,7 +32,7 @@ class Station:
         return (
             f'Name: {self.name}\n'
             f'Short name: {self.name_short}\n'
-            f'ID: {self.id}\n'
+            f'ID: {self.station_id}\n'
             f'Latitude: {self.lat}\n'
             f'Longitude: {self.lon}\n'
             f'ID region: {self.id_region}'
@@ -43,15 +43,15 @@ class Stop(Station):
     '''Class to represent a stop of a train.
     '''
 
-    def __init__(self, name, id, name_short=None, lat=None, lon=None,
+    def __init__(self, name, station_id, name_short=None, lat=None, lon=None,
                  id_region=None, arrival_time=None, departure_time=None,
                  delay_arrival=None, delay_departure=None):
         '''_summary_
 
         :param name: name of the station
         :type name: str
-        :param id: ID of the station
-        :type id: str
+        :param station_id: ID of the station
+        :type station_id: str
         :param name_short: short name of the station, defaults to None
         :type name_short: str, optional
         :param lat: latitute of the station, defaults to None
@@ -99,7 +99,6 @@ class Train:
             f'Number: {self.number}\n'
             f'Origin ID: {self.origin_id}\n'
             f'Departure time: {self.departure_time}\n'
-            f'Destination ID: {self.destination_id}'
         )
 
     def add_stop(self, stop: Stop):
