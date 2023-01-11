@@ -34,7 +34,7 @@ class Viaggiatreno:
         '''
 
         # Get the data from the API
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['stations_list'] + '/' + str(id_region))
+        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['stations_list'] + '/' + str(id_region), timeout=10)
         data_json = json.loads(response.text)
 
         # Create a list of Station objects from the response of the request
@@ -60,7 +60,7 @@ class Viaggiatreno:
         '''
 
         # Get the data from the API
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['autocomplete_station'] + '/' + query)
+        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['autocomplete_station'] + '/' + query, timeout=10)
         data_json = json.loads(response.text)
 
         # Create a list of Station objects from the response of the request
@@ -82,7 +82,7 @@ class Viaggiatreno:
         '''
 
         # Get the data from the API
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['region_station'] + '/' + id_station)
+        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['region_station'] + '/' + id_station, timeout=10)
         return int(response.text)
 
     def get_station_details(self, id_station: str) -> Station:
@@ -99,7 +99,7 @@ class Viaggiatreno:
 
         # Get the data from the API
         response = requests.get(self.BASE_URL + self.API_ENDPOINTS['station_details'] +
-                                '/' + id_station + '/' + str(id_region))
+                                '/' + id_station + '/' + str(id_region), timeout=10)
         data_json = json.loads(response.text)
 
         # Create a Station object
@@ -124,7 +124,7 @@ class Viaggiatreno:
 
         # Get the data from the API
         # The data the we get is text, not JSON
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['autocomplete_train_number'] + '/' + str(query))
+        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['autocomplete_train_number'] + '/' + str(query), timeout=10)
         data_txt = response.text
 
         # Loop on every line of the response test to create
@@ -154,7 +154,7 @@ class Viaggiatreno:
 
         # Get the data from the API
         response = requests.get(self.BASE_URL + self.API_ENDPOINTS['train_stops'] + '/' +
-                                train.origin_id + '/' + train.number + '/' + train.departure_time)
+                                train.origin_id + '/' + train.number + '/' + train.departure_time, timeout=10)
         data_json = json.loads(response.text)
 
         # Loop on every stop and add it to the train object
