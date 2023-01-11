@@ -5,7 +5,7 @@ class Station:
     '''Class to represent a station.
     '''
     
-    def __init__(self, name, id, lat, lon, name_short=None):
+    def __init__(self, name, id, name_short=None, lat=None, lon=None):
         '''
         :param name: Name of the station
         :type name: str
