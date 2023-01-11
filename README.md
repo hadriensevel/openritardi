@@ -1,3 +1,3 @@
-# Open Ritardi API
+# Open Ritardi
 
-A package to get data from the viaggiatreno API
+A package to obtain data on trains in Italy.

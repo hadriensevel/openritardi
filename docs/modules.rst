@@ -1,7 +1,7 @@
-openritardi_api
-===============
+openritardi
+===========
 
 .. toctree::
    :maxdepth: 4
 
-   openritardi_api
+   openritardi
