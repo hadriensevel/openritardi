@@ -7,14 +7,14 @@ class Station:
     '''
 
     def __init__(self, name: str, station_id: str, name_short: str = None,
-                 lat: int = None, lon: int = None, id_region: int = None):
+                 lat: float = None, lon: float = None, id_region: int = None):
         '''
         Args:
             name (str): name of the station
             station_id (str): ID of the station
             name_short (str, optional): short name of the station. Defaults to None.
-            lat (int, optional): latitute of the station. Defaults to None.
-            lon (int, optional): longitude of the station. Defaults to None.
+            lat (float, optional): latitute of the station. Defaults to None.
+            lon (float, optional): longitude of the station. Defaults to None.
             id_region (int, optional): ID of the region of the station. Defaults to None.
         '''
         self.name = name
@@ -40,7 +40,7 @@ class Stop(Station):
     '''
 
     def __init__(self, name: str, station_id: str, name_short: str = None,
-                 lat: int = None, lon: int = None, id_region: int = None,
+                 lat: float = None, lon: float = None, id_region: int = None,
                  arrival_time: int = None, departure_time: int = None,
                  delay_arrival: int = None, delay_departure: int = None):
         '''
@@ -48,8 +48,8 @@ class Stop(Station):
             name (str): name of the station
             station_id (str): ID of the station
             name_short (str, optional): short name of the station. Defaults to None.
-            lat (int, optional): latitute of the station. Defaults to None.
-            lon (int, optional): longitude of the station. Defaults to None.
+            lat (float, optional): latitute of the station. Defaults to None.
+            lon (float, optional): longitude of the station. Defaults to None.
             id_region (int, optional): ID of the region of the station. Defaults to None.
             arrival_time (int, optional): arrival time. Defaults to None.
             departure_time (int, optional): departure time. Defaults to None.
