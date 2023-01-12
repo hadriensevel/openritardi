@@ -8,18 +8,13 @@ class Station:
 
     def __init__(self, name, station_id, name_short=None, lat=None, lon=None, id_region=None):
         '''
-        :param name: name of the station
-        :type name: str
-        :param station_id: ID of the station
-        :type station_id: str
-        :param name_short: short name of the station, defaults to None
-        :type name_short: str, optional
-        :param lat: latitute of the station, defaults to None
-        :type lat: int, optional
-        :param lon: longitude of the station, defaults to None
-        :type lon: int, optional
-        :param id_region: ID of the region of the station, defaults to None
-        :type id_region: int, optional
+        Args:
+            name (str): name of the station
+            station_id (str): ID of the station
+            name_short (str, optional): short name of the station. Defaults to None.
+            lat (int, optional): latitute of the station. Defaults to None.
+            lon (int, optional): longitude of the station. Defaults to None.
+            id_region (int, optional): ID of the region of the station. Defaults to None.
         '''
         self.name = name
         self.station_id = station_id
@@ -46,28 +41,18 @@ class Stop(Station):
     def __init__(self, name, station_id, name_short=None, lat=None, lon=None,
                  id_region=None, arrival_time=None, departure_time=None,
                  delay_arrival=None, delay_departure=None):
-        '''_summary_
-
-        :param name: name of the station
-        :type name: str
-        :param station_id: ID of the station
-        :type station_id: str
-        :param name_short: short name of the station, defaults to None
-        :type name_short: str, optional
-        :param lat: latitute of the station, defaults to None
-        :type lat: int, optional
-        :param lon: longitude of the station, defaults to None
-        :type lon: int, optional
-        :param id_region: ID of the region of the station, defaults to None
-        :type id_region: int, optional
-        :param arrival_time: arrival time, defaults to None
-        :type arrival_time: int, optional
-        :param departure_time: departure time, defaults to None
-        :type departure_time: int, optional
-        :param delay_arrival: delay on arrival, defaults to None
-        :type delay_arrival: int, optional
-        :param delay_departure: delay on departure, defaults to None
-        :type delay_departure: int, optional
+        '''
+        Args:
+            name (str): name of the station
+            station_id (str): ID of the station
+            name_short (str, optional): short name of the station. Defaults to None.
+            lat (int, optional): latitute of the station. Defaults to None.
+            lon (int, optional): longitude of the station. Defaults to None.
+            id_region (int, optional): ID of the region of the station. Defaults to None.
+            arrival_time (int, optional): arrival time. Defaults to None.
+            departure_time (int, optional): departure time. Defaults to None.
+            delay_arrival (int, optional): delay on arrival. Defaults to None.
+            delay_departure (int, optional): delay on departure. Defaults to None.
         '''
         super().__init__(name, id, name_short, lat, lon, id_region)
         self.arrival_time = arrival_time
@@ -82,12 +67,10 @@ class Train:
 
     def __init__(self, number, origin_id, departure_time):
         '''
-        :param number: train number
-        :type number: int
-        :param origin_id: ID of the station of origin
-        :type origin_id: str
-        :param departure_time: departure time
-        :type departure_time: int
+        Args:
+            number (int): train number
+            origin_id (str): D of the station of origin
+            departure_time (int): departure time
         '''
         self.number = number
         self.origin_id = origin_id
@@ -102,10 +85,10 @@ class Train:
         )
 
     def add_stop(self, stop: Stop):
-        '''Add a stop to the train.
+        '''Add a stop to the train
 
-        :param stop: Stop object
-        :type stop: Stop
+        Args:
+            stop (Stop): stop to add
         '''
         self.stops.append(stop)
 

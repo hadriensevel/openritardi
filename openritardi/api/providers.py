@@ -28,10 +28,15 @@ class Viaggiatreno:
     def send_request(self, end_point: str) -> str:
         '''Send a request to the API.
 
-        :param end_point: end point of the request
-        :type end_point: str
-        :return: response of the request
-        :rtype: str
+        Args:
+            end_point (str): end point of the request
+
+        Raises:
+            VoidResponse: void response from viaggiatreno
+            ErrorResponse: error reponse from viaggiatreno
+
+        Returns:
+            str: response of the request
         '''
 
         # Send the request
@@ -51,10 +56,11 @@ class Viaggiatreno:
     def get_stations_region(self, id_region: int) -> list[Station]:
         '''Get the list of stations in a region.
 
-        :param id_region: ID of the region
-        :type id_region: int
-        :return: list of Station objects
-        :rtype: list[Station]
+        Args:
+            id_region (int): ID of the region
+
+        Returns:
+            list[Station]: list of Station objects
         '''
 
         # Get the data from the API
@@ -77,10 +83,11 @@ class Viaggiatreno:
         '''Autocomplete a station name.
         It returns a list of stations (name, short name and ID) that match the query.
 
-        :param query: query to search
-        :type query: str
-        :return: list of Station objects
-        :rtype: list[Station]
+        Args:
+            query (str): query to search
+
+        Returns:
+            list[Station]: list of Station objects
         '''
 
         # Get the data from the API
@@ -99,10 +106,11 @@ class Viaggiatreno:
     def get_region_station(self, id_station: str) -> int:
         '''Get the region ID of a station.
 
-        :param id_station: ID of the station
-        :type id_station: str
-        :return: ID of the region
-        :rtype: int
+        Args:
+            id_station (str): ID of the station
+
+        Returns:
+            int: ID of the region
         '''
 
         # Get the data from the API
@@ -112,10 +120,11 @@ class Viaggiatreno:
     def get_station_details(self, id_station: str) -> Station:
         '''Create a Station object with its details.
 
-        :param id_station: ID of the station
-        :type id_station: str
-        :return: Station object
-        :rtype: Station
+        Args:
+            id_station (str): ID of the station
+
+        Returns:
+            Station: Station oject
         '''
 
         # Get the ID of the region of the station
@@ -140,10 +149,11 @@ class Viaggiatreno:
         '''Autocomplete a train number.
         It returns a list of trains (number, origin ID and departure time) that match the query.
 
-        :param query: query to search
-        :type query: str
-        :return: list of Train objects
-        :rtype: list[Train]
+        Args:
+            query (int): query to search
+
+        Returns:
+            list[Train]: list of Train objects
         '''
 
         # Get the data from the API
@@ -170,10 +180,11 @@ class Viaggiatreno:
     def get_train_stops(self, train: Train) -> Train:
         '''Get the stops of a train with realtime data.
 
-        :param train: Train object
-        :type train: Train
-        :return: Train object with the stops
-        :rtype: Train
+        Args:
+            train (Train): Train object
+
+        Returns:
+            Train: initial Train object with the stops
         '''
 
         # Get the data from the API

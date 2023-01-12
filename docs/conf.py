@@ -32,6 +32,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
     'sphinx.ext.githubpages',
+    'sphinx.ext.napoleon',
     'myst_parser'
 ]
 
