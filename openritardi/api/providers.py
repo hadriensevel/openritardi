@@ -33,7 +33,7 @@ class Viaggiatreno:
 
         Raises:
             VoidResponse: void response from viaggiatreno
-            ErrorResponse: error reponse from viaggiatreno
+            ErrorResponse: error response from viaggiatreno
 
         Returns:
             str: response of the request
