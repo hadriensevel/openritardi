@@ -5,6 +5,7 @@ import json
 import requests
 
 from .data_objects import Station, Train, Stop
+from .exceptions import VoidResponse, ErrorResponse
 
 
 class Viaggiatreno:
@@ -24,6 +25,29 @@ class Viaggiatreno:
     def __init__(self):
         pass
 
+    def send_request(self, end_point: str) -> str:
+        '''Send a request to the API.
+
+        :param end_point: end point of the request
+        :type end_point: str
+        :return: response of the request
+        :rtype: str
+        '''
+
+        # Send the request
+        response = requests.get(self.BASE_URL + end_point, timeout=10)
+
+        # Check if the response is void
+        if response.text == '':
+            raise VoidResponse('The response from viaggiatreno is void.')
+
+        # Check if the response is an error
+        if (response.status_code != 200 or response.text == 'Error'):
+            raise ErrorResponse('Viaggiatreno replied with an error.')
+
+        # Return the response
+        return response.text
+
     def get_stations_region(self, id_region: int) -> list[Station]:
         '''Get the list of stations in a region.
 
@@ -34,15 +58,15 @@ class Viaggiatreno:
         '''
 
         # Get the data from the API
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['stations_list'] + '/' + str(id_region), timeout=10)
-        data_json = json.loads(response.text)
+        response = self.send_request(self.API_ENDPOINTS['stations_list'] + '/' + str(id_region))
+        data_json = json.loads(response)
 
         # Create a list of Station objects from the response of the request
         stations = []
         for station in data_json:
             stations.append(Station(name=station['localita']['nomeLungo'],
                                     name_short=station['localita']['nomeBreve'],
-                                    id=station['codiceStazione'],
+                                    station_id=station['codiceStazione'],
                                     lat=station['lat'],
                                     lon=station['lon'],
                                     id_region=station['codReg']))
@@ -60,15 +84,15 @@ class Viaggiatreno:
         '''
 
         # Get the data from the API
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['autocomplete_station'] + '/' + query, timeout=10)
-        data_json = json.loads(response.text)
+        response = self.send_request(self.API_ENDPOINTS['autocomplete_station'] + '/' + query)
+        data_json = json.loads(response)
 
         # Create a list of Station objects from the response of the request
         stations = []
         for station in data_json:
             stations.append(Station(name=station['nomeLungo'],
                                     name_short=station['nomeBreve'],
-                                    id=station['id']))
+                                    station_id=station['id']))
 
         return stations
 
@@ -82,8 +106,8 @@ class Viaggiatreno:
         '''
 
         # Get the data from the API
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['region_station'] + '/' + id_station, timeout=10)
-        return int(response.text)
+        response = self.send_request(self.API_ENDPOINTS['region_station'] + '/' + id_station)
+        return int(response)
 
     def get_station_details(self, id_station: str) -> Station:
         '''Create a Station object with its details.
@@ -98,14 +122,14 @@ class Viaggiatreno:
         id_region = self.get_region_station(id_station)
 
         # Get the data from the API
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['station_details'] +
-                                '/' + id_station + '/' + str(id_region), timeout=10)
-        data_json = json.loads(response.text)
+        response = self.send_request(self.API_ENDPOINTS['station_details'] +
+                                     '/' + id_station + '/' + str(id_region))
+        data_json = json.loads(response)
 
         # Create a Station object
         station = Station(name=data_json['localita']['nomeLungo'],
                           name_short=data_json['localita']['nomeBreve'],
-                          id=data_json['codiceStazione'],
+                          station_id=data_json['codiceStazione'],
                           lat=data_json['lat'],
                           lon=data_json['lon'],
                           id_region=data_json['codReg'])
@@ -124,8 +148,8 @@ class Viaggiatreno:
 
         # Get the data from the API
         # The data the we get is text, not JSON
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['autocomplete_train_number'] + '/' + str(query), timeout=10)
-        data_txt = response.text
+        response = self.send_request(self.API_ENDPOINTS['autocomplete_train_number'] + '/' + str(query))
+        data_txt = response
 
         # Loop on every line of the response test to create
         # and object and add it to the list
@@ -153,14 +177,14 @@ class Viaggiatreno:
         '''
 
         # Get the data from the API
-        response = requests.get(self.BASE_URL + self.API_ENDPOINTS['train_stops'] + '/' +
-                                train.origin_id + '/' + train.number + '/' + train.departure_time, timeout=10)
-        data_json = json.loads(response.text)
+        response = self.send_request(self.API_ENDPOINTS['train_stops'] + '/' +
+                                     train.origin_id + '/' + train.number + '/' + train.departure_time)
+        data_json = json.loads(response)
 
         # Loop on every stop and add it to the train object
         for stop in data_json:
             train.add_stop(Stop(name=stop['fermata']['stazione'],
-                                id=stop['fermata']['id'],
+                                station_id=stop['fermata']['id'],
                                 arrival_time=stop['fermata']['arrivo_teorico'],
                                 departure_time=stop['fermata']['partenza_teorica'],
                                 delay_arrival=stop['fermata']['ritardoArrivo'],
