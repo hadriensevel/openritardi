@@ -6,7 +6,8 @@ class Station:
     '''Class to represent a station.
     '''
 
-    def __init__(self, name, station_id, name_short=None, lat=None, lon=None, id_region=None):
+    def __init__(self, name: str, station_id: str, name_short: str = None,
+                 lat: int = None, lon: int = None, id_region: int = None):
         '''
         Args:
             name (str): name of the station
@@ -38,9 +39,10 @@ class Stop(Station):
     '''Class to represent a stop of a train.
     '''
 
-    def __init__(self, name, station_id, name_short=None, lat=None, lon=None,
-                 id_region=None, arrival_time=None, departure_time=None,
-                 delay_arrival=None, delay_departure=None):
+    def __init__(self, name: str, station_id: str, name_short: str = None,
+                 lat: int = None, lon: int = None, id_region: int = None,
+                 arrival_time: int = None, departure_time: int = None,
+                 delay_arrival: int = None, delay_departure: int = None):
         '''
         Args:
             name (str): name of the station
@@ -54,7 +56,7 @@ class Stop(Station):
             delay_arrival (int, optional): delay on arrival. Defaults to None.
             delay_departure (int, optional): delay on departure. Defaults to None.
         '''
-        super().__init__(name, id, name_short, lat, lon, id_region)
+        super().__init__(name, station_id, name_short, lat, lon, id_region)
         self.arrival_time = arrival_time
         self.departure_time = departure_time
         self.delay_arrival = delay_arrival
@@ -65,7 +67,7 @@ class Train:
     '''Class to represent a train.
     '''
 
-    def __init__(self, number, origin_id, departure_time):
+    def __init__(self, number: int, origin_id: str, departure_time: int):
         '''
         Args:
             number (int): train number
