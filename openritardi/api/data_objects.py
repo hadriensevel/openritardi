@@ -80,7 +80,7 @@ class Train:
         self.stops = []
 
     def __str__(self):
-        return(
+        return (
             f'Number: {self.number}\n'
             f'Origin ID: {self.origin_id}\n'
             f'Departure time: {self.departure_time}\n'
