@@ -7,7 +7,7 @@ def readme():
 
 
 setup(name='openritardi',
-      version='0.1',
+      version='0.1.0',
       python_requires='>=3.9',
       description='A package to obtain data on trains in Italy',
       long_description=readme(),
